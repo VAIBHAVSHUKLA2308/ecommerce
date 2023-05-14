@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Data miner</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <style>
+        .main-box {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            background-color: aliceblue;
+        }
+
+        .search-box {
+            min-width: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- place navbar here -->
+    </header>
+    <main>
+        <div class="container-fluid main-box">
+            <div class="row search-box">
+                <div class="col-md-8 mx-auto">
+                    <form method="post">
+                        <div class="mb-3">
+                            <h1 class="text-center display-2">Data Miner 📅</h1>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="search" maxlength="100" class="form-control" name="query" id="query"
+                                placeholder="Laptop...">
+                            <label for="query">Enter product to search</label>
+                        </div>
+                        <div class="mb-3">
+                            <input type="image" src="/static/images/btngrid.png" alt="Submit" width="120" height="150"
+                                border="0" id="submit1" class="mx-auto" title="search in grid page">
+                            <input type="image" src="/static/images/btngrid.png" alt="Submit" width="120" height="150"
+                                border="0" id="submit2" class="mx-auto" title="search in list page">
+                        </div>
+                        <small class="text-muted">
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur enim aperiam quam a et,
+                            quasi in nobis facere rerum, perferendis dolorem, quia eum doloremque cum ea sunt aliquam
+                            voluptatem corrupti!
+                        </small>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+
+        
+        <!-- Modal Body -->
+        <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+        <div class="modal fade" id="progress_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="progress_modal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitleId">Collecting Data</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+       
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(function () {
+            const myModal = new bootstrap.Modal(document.getElementById('progress_modal'))
+            $("#submit1").click(function (e) {
+                e.preventDefault();
+                myModal.show();
+                let query = $("#query").val();
+                $.ajax({
+                    type: "post",
+                    url: "/search",
+                    data: {
+                        query: query,
+                        page: "grid"
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        // show a modal
+                        window.location.href = "/collection";
+                    },
+                    error: function (response) {
+                        // show a modal
+                        alert("error");
+                    }
+                });
+            });
+            $("#submit2").click(function (e) {
+                e.preventDefault();
+                myModal.show();
+                let query = $("#query").val();
+                $.ajax({
+                    type: "post",
+                    url: "/search",
+                    data: {
+                        query: query,
+                        page: "list"
+                    },
+                    dataType: "text",
+                    success: function (response) {
+                        // show a modal
+                        window.location.href = "/collection";
+                    },
+                    error: function (response) {
+                        // show a modal
+                        alert("error");
+                    }
+                });
+            });
+        });
+        
+    </script> 
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 from dputils.scrape import Scraper, Tag
 import pandas as pd
 
-class MyScraper:
+class MyScraperList:
     def __init__(self, query, page=1):
         self.query = query
         self.page = page
@@ -36,7 +36,7 @@ class MyScraper:
 
 if __name__ == '__main__':
     # create object
-    sc = MyScraper('laptops')
+    sc = MyScraperList('laptops')
     # collect data
     sc.collect_all()
     # save data
