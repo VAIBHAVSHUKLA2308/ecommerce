@@ -97,6 +97,10 @@ integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6
                 e.preventDefault();
                 myModal.show();
                 let query = $("#query").val();
+                if (query == "") {
+                    alert("Please enter a product to search");
+                    return;
+                }
                 $.ajax({
                     type: "post",
                     url: "/search",
@@ -119,6 +123,10 @@ integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6
                 e.preventDefault();
                 myModal.show();
                 let query = $("#query").val();
+                if (query == "") {
+                    alert("Please enter a product to search");
+                    return;
+                }
                 $.ajax({
                     type: "post",
                     url: "/search",
