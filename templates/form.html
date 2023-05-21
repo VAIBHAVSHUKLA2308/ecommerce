@@ -45,7 +45,7 @@
                             <input type="image" src="/static/images/btngrid.png" alt="Submit" width="120" height="150"
                                 border="0" id="submit1" class="mx-auto" title="search in grid page">
                             <input type="image" src="/static/images/btngrid.png" alt="Submit" width="120" height="150"
-                                border="0" id="submit2" class="mx-auto" title="search in list page"> 
+                                border="0" id="submit2" class="mx-auto" title="search in list page">
                         </div>
                         <small class="text-muted">
                             perferendis dolorem, quia eum doloremque cum ea sunt aliquam
@@ -58,10 +58,11 @@
     </main>
     <footer>
 
-        
+
         <!-- Modal Body -->
         <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-        <div class="modal fade" id="progress_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="progress_modal" aria-hidden="true">
+        <div class="modal fade" id="progress_modal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="progress_modal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -70,28 +71,28 @@
                     <div class="modal-body">
                         <div class="spinner-border" role="status">
                             <span class="visually-hidden">Loading...</span>
-                          </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        
-       
+
+
+
     </footer>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
         </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
-integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
         </script>
 
-<!-- jquery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $(function () {
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(function () {
             const myModal = new bootstrap.Modal(document.getElementById('progress_modal'))
             $("#submit1").click(function (e) {
                 e.preventDefault();
@@ -100,24 +101,25 @@ integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6
                 if (query == "") {
                     alert("Please enter a product to search");
                     return;
+                } else {
+                    $.ajax({
+                        type: "post",
+                        url: "/search",
+                        data: {
+                            query: query,
+                            page: "grid"
+                        },
+                        dataType: "text",
+                        success: function (response) {
+                            // show a modal
+                            window.location.href = "/collection";
+                        },
+                        error: function (response) {
+                            // show a modal
+                            alert("error");
+                        }
+                    });
                 }
-                $.ajax({
-                    type: "post",
-                    url: "/search",
-                    data: {
-                        query: query,
-                        page: "grid"
-                    },
-                    dataType: "text",
-                    success: function (response) {
-                        // show a modal
-                        window.location.href = "/collection";
-                    },
-                    error: function (response) {
-                        // show a modal
-                        alert("error");
-                    }
-                });
             });
             $("#submit2").click(function (e) {
                 e.preventDefault();
@@ -127,27 +129,29 @@ integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6
                     alert("Please enter a product to search");
                     return;
                 }
-                $.ajax({
-                    type: "post",
-                    url: "/search",
-                    data: {
-                        query: query,
-                        page: "list"
-                    },
-                    dataType: "text",
-                    success: function (response) {
-                        // show a modal
-                        window.location.href = "/collection";
-                    },
-                    error: function (response) {
-                        // show a modal
-                        alert("error");
-                    }
-                });
+                else {
+                    $.ajax({
+                        type: "post",
+                        url: "/search",
+                        data: {
+                            query: query,
+                            page: "list"
+                        },
+                        dataType: "text",
+                        success: function (response) {
+                            // show a modal
+                            window.location.href = "/collection";
+                        },
+                        error: function (response) {
+                            // show a modal
+                            alert("error");
+                        }
+                    });
+                }
             });
         });
-        
-    </script> 
+
+    </script>
 </body>
 
 </html>
